@@ -31,7 +31,7 @@ jobs:
 
     runs-on: ${{ matrix.platform.runner }}
     env:
-      RHEL8_NVIDIA_REPO: "https://developer.download.nvidia.com/hardware/cuda/repos/rhel8/${{ matrix.platform.repo-architecture }}/cuda-rhel8.repo"
+      RHEL8_NVIDIA_REPO: "https://developer.download.nvidia.com/compute/cuda/repos/rhel8/${{ matrix.platform.repo-architecture }}/cuda-rhel8.repo"
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
@@ -158,3 +158,4 @@ jobs:
           draft: false
           prerelease: true
           files: dist/**
+
