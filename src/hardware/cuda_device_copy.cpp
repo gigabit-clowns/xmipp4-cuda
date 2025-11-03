@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-#include <xmipp4/cuda/compute/cuda_device_copy.hpp>
+#include <xmipp4/cuda/hardware/cuda_device_copy.hpp>
 
-#include <xmipp4/cuda/compute/cuda_device_queue.hpp>
-#include <xmipp4/cuda/compute/cuda_device_buffer.hpp>
+#include <xmipp4/cuda/hardware/cuda_device_queue.hpp>
+#include <xmipp4/cuda/hardware/cuda_device_buffer.hpp>
 
 #include "cuda_buffer_memcpy.hpp"
 

@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.18)
 file(READ ${CMAKE_CURRENT_SOURCE_DIR}/VERSION PROJECT_VERSION)
 string(STRIP "${PROJECT_VERSION}" PROJECT_VERSION)
 project(
-  xmipp4-compute-cuda
+  xmipp4-hardware-cuda
 	VERSION ${PROJECT_VERSION}
 	LANGUAGES C CXX CUDA
 )
@@ -14,7 +14,7 @@ include(GNUInstallDirs)
 include(CTest)
 
 # Declare build options
-option(XMIPP4_COMPUTE_CUDA_LINT_CLANG_TIDY "Lint with clang-tidy" OFF)
+option(XMIPP4_HARDWARE_CUDA_LINT_CLANG_TIDY "Lint with clang-tidy" OFF)
 
 # Find xmipp4-core
 if(NOT TARGET xmipp4-core)
@@ -40,7 +40,7 @@ set_target_properties(
 	${TARGET_NAME} 
 	PROPERTIES 
 		CXX_STANDARD 20
-		DEFINE_SYMBOL "XMIPP4_COMPUTE_CUDA_EXPORTING"
+		DEFINE_SYMBOL "XMIPP4_HARDWARE_CUDA_EXPORTING"
 )
 target_include_directories(
 	${TARGET_NAME} 
@@ -63,7 +63,7 @@ target_link_libraries(
 )
 
 # Set up clang-tidy
-if(XMIPP4_COMPUTE_CUDA_LINT_CLANG_TIDY)
+if(XMIPP4_HARDWARE_CUDA_LINT_CLANG_TIDY)
 	find_program(CLANG_TIDY_EXE clang-tidy REQUIRED)
 	set_target_properties(
 		${TARGET_NAME} 

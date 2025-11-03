@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-#include <xmipp4/cuda/compute/allocator/cuda_memory_block.hpp>
+#include <xmipp4/cuda/hardware/allocator/cuda_memory_block.hpp>
 
 #include <cstddef>
 

@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 #pragma once
-#include <xmipp4/cuda/compute/cuda_device_buffer.hpp>
-#include <xmipp4/cuda/compute/allocator/cuda_memory_allocator_delete.hpp>
+#include <xmipp4/cuda/hardware/cuda_device_buffer.hpp>
+#include <xmipp4/cuda/hardware/allocator/cuda_memory_allocator_delete.hpp>
 
 #include <memory>
 

@@ -2,7 +2,7 @@
 
 #include "cuda_plugin.hpp"
 
-#include <xmipp4/cuda/compute/cuda_device_backend.hpp>
+#include <xmipp4/cuda/hardware/cuda_device_backend.hpp>
 
 #include <xmipp4/core/service_catalog.hpp>
 #include <xmipp4/core/hardware/device_manager.hpp>

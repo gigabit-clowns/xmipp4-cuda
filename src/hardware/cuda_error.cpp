@@ -2,7 +2,7 @@
 
 // Based on: https://leimao.github.io/blog/Proper-CUDA-Error-Checking/
 
-#include <xmipp4/cuda/compute/cuda_error.hpp>
+#include <xmipp4/cuda/hardware/cuda_error.hpp>
 
 #include <sstream>
 

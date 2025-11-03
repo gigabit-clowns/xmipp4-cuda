@@ -2,10 +2,10 @@
 
 #include "default_cuda_host_buffer.hpp"
 
-#include <xmipp4/cuda/compute/allocator/cuda_memory_block.hpp>
-#include <xmipp4/cuda/compute/allocator/cuda_memory_block_usage_tracker.hpp>
-#include <xmipp4/cuda/compute/cuda_device_queue.hpp>
-#include <xmipp4/cuda/compute/cuda_host_memory_allocator.hpp>
+#include <xmipp4/cuda/hardware/allocator/cuda_memory_block.hpp>
+#include <xmipp4/cuda/hardware/allocator/cuda_memory_block_usage_tracker.hpp>
+#include <xmipp4/cuda/hardware/cuda_device_queue.hpp>
+#include <xmipp4/cuda/hardware/cuda_host_memory_allocator.hpp>
 
 namespace xmipp4
 {

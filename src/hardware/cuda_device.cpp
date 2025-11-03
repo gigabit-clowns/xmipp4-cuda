@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-#include <xmipp4/cuda/compute/cuda_device.hpp>
+#include <xmipp4/cuda/hardware/cuda_device.hpp>
 
-#include <xmipp4/cuda/compute/cuda_device_queue.hpp>
-#include <xmipp4/cuda/compute/cuda_device_memory_allocator.hpp>
-#include <xmipp4/cuda/compute/cuda_host_memory_allocator.hpp>
-#include <xmipp4/cuda/compute/cuda_device_to_host_transfer.hpp>
-#include <xmipp4/cuda/compute/cuda_host_to_device_transfer.hpp>
-#include <xmipp4/cuda/compute/cuda_device_copy.hpp>
-#include <xmipp4/cuda/compute/cuda_event.hpp>
+#include <xmipp4/cuda/hardware/cuda_device_queue.hpp>
+#include <xmipp4/cuda/hardware/cuda_device_memory_allocator.hpp>
+#include <xmipp4/cuda/hardware/cuda_host_memory_allocator.hpp>
+#include <xmipp4/cuda/hardware/cuda_device_to_host_transfer.hpp>
+#include <xmipp4/cuda/hardware/cuda_host_to_device_transfer.hpp>
+#include <xmipp4/cuda/hardware/cuda_device_copy.hpp>
+#include <xmipp4/cuda/hardware/cuda_event.hpp>
 
 #include <xmipp4/core/hardware/device_create_parameters.hpp>
 

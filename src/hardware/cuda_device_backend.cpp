@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-#include <xmipp4/cuda/compute/cuda_device_backend.hpp>
+#include <xmipp4/cuda/hardware/cuda_device_backend.hpp>
 
-#include <xmipp4/cuda/compute/cuda_error.hpp>
-#include <xmipp4/cuda/compute/cuda_device.hpp>
+#include <xmipp4/cuda/hardware/cuda_error.hpp>
+#include <xmipp4/cuda/hardware/cuda_device.hpp>
 
 #include <xmipp4/core/hardware/device_manager.hpp>
 

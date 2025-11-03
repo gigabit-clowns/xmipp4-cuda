@@ -2,9 +2,9 @@
 
 #include "cuda_buffer_memcpy.hpp"
 
-#include <xmipp4/cuda/compute/cuda_error.hpp>
-#include <xmipp4/cuda/compute/cuda_device_queue.hpp>
-#include <xmipp4/cuda/compute/cuda_device_buffer.hpp>
+#include <xmipp4/cuda/hardware/cuda_error.hpp>
+#include <xmipp4/cuda/hardware/cuda_device_queue.hpp>
+#include <xmipp4/cuda/hardware/cuda_device_buffer.hpp>
 
 #include <xmipp4/core/memory/align.hpp>
 #include <xmipp4/core/hardware/checks.hpp>

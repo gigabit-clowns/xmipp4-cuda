@@ -2,7 +2,7 @@
 
 #pragma once
 #include <xmipp4/core/hardware/host_buffer.hpp>
-#include <xmipp4/cuda/compute/allocator/cuda_memory_allocator_delete.hpp>
+#include <xmipp4/cuda/hardware/allocator/cuda_memory_allocator_delete.hpp>
 
 #include <memory>
 

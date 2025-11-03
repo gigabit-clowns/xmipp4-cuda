@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-#include <xmipp4/cuda/compute/cuda_host_memory_allocator.hpp>
+#include <xmipp4/cuda/hardware/cuda_host_memory_allocator.hpp>
 
 #include "default_cuda_host_buffer.hpp"
 
-#include <xmipp4/cuda/compute/cuda_device_queue.hpp>
+#include <xmipp4/cuda/hardware/cuda_device_queue.hpp>
 
 namespace xmipp4
 {
