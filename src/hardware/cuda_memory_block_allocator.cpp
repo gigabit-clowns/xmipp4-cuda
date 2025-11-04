@@ -67,6 +67,7 @@ cuda_memory_block_allocator::try_allocate(
 {
     const cuda_memory_block *result;
 
+    size = memory::align_ceil(size, m_request_size_step);
     m_deferred_blocks.process_pending_free(m_block_pool);
     const auto ite = allocate_block(
         m_block_pool,
