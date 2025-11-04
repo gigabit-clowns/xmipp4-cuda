@@ -84,7 +84,6 @@ private:
     cuda_memory_block_deferred_release m_deferred_blocks;
     std::size_t m_minimum_size;
     std::size_t m_request_size_step;
-    std::size_t m_maximum_alignment;
 
 }; 
 

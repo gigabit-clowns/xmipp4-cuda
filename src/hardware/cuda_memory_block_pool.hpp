@@ -24,9 +24,12 @@ class cuda_memory_resource;
  * by their data pointer.
  * 
  */
-using cuda_memory_block_pool = std::map<cuda_memory_block,
-                                        cuda_memory_block_context,
-                                        cuda_memory_block_less >;
+using cuda_memory_block_pool = std::map<
+    cuda_memory_block,
+    cuda_memory_block_context,
+    cuda_memory_block_less 
+>;
+
 
 
 /**
@@ -49,9 +52,11 @@ public:
      * @param free Wether the block is available.
      * 
      */
-    cuda_memory_block_context(iterator prev, 
-                              iterator next, 
-                              bool free ) noexcept;
+    cuda_memory_block_context(
+        iterator prev, 
+        iterator next, 
+        bool free
+    ) noexcept;
     cuda_memory_block_context(const cuda_memory_block_context &other) = default;
     cuda_memory_block_context(cuda_memory_block_context &&other) = default;
     ~cuda_memory_block_context() = default;

@@ -27,8 +27,12 @@ class cuda_memory_block_deferred_release
 {
 public:
     cuda_memory_block_deferred_release() = default;
-    cuda_memory_block_deferred_release(const cuda_memory_block_deferred_release &other) = delete;
-    cuda_memory_block_deferred_release(cuda_memory_block_deferred_release &&other) = default;
+    cuda_memory_block_deferred_release(
+        const cuda_memory_block_deferred_release &other
+    ) = delete;
+    cuda_memory_block_deferred_release(
+        cuda_memory_block_deferred_release &&other
+    ) = default;
     ~cuda_memory_block_deferred_release() = default;
 
     cuda_memory_block_deferred_release&
@@ -65,9 +69,10 @@ public:
 
 private:
     using event_list = std::forward_list<cuda_event>;
+    using block_key = cuda_memory_block_pool::iterator;
 
     event_list m_event_pool;
-    std::vector<std::pair<cuda_memory_block_pool::iterator, event_list>> m_pending_free;
+    std::vector<std::pair<block_key, event_list>> m_pending_free;
 
     /**
      * @brief Pop all signaled events from the list.

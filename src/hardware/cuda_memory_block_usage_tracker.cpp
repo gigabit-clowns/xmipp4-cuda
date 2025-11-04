@@ -14,8 +14,10 @@ void cuda_memory_block_usage_tracker::reset() noexcept
     m_queues.clear();
 }
 
-void cuda_memory_block_usage_tracker::add_queue(const cuda_memory_block &block,
-                                                cuda_device_queue &queue )
+void cuda_memory_block_usage_tracker::add_queue(
+    const cuda_memory_block &block,
+    cuda_device_queue &queue 
+)
 {
     auto *const queue_pointer = &queue;
     if (queue_pointer != block.get_queue())
