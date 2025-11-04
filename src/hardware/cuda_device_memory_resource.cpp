@@ -7,8 +7,6 @@
 
 #include <xmipp4/core/memory/align.hpp>
 
-#include "cuda_device_memory_allocator.hpp"
-
 #include <utility>
 
 #include <cuda_runtime.h>
@@ -39,7 +37,7 @@ memory_resource_kind cuda_device_memory_resource::get_kind() const noexcept
 std::shared_ptr<memory_allocator> 
 cuda_device_memory_resource::create_allocator()
 {
-    return std::make_shared<cuda_device_memory_allocator>(*this);
+    return nullptr; // TODO
 }
 
 void* cuda_device_memory_resource::malloc(
@@ -54,7 +52,7 @@ void* cuda_device_memory_resource::malloc(
 
     if (!memory::is_aligned(result, alignment))
     {
-        XMIPP4_CUDA_CHECK( cudaFree(result) );
+        free(result);
         result = nullptr;
     }
 

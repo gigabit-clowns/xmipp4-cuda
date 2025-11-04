@@ -5,8 +5,6 @@
 #include <xmipp4/core/memory/align.hpp>
 #include <xmipp4/cuda/hardware/cuda_error.hpp>
 
-#include "cuda_host_pinned_memory_allocator.hpp"
-
 #include <utility>
 
 #include <cuda_runtime.h>
@@ -31,7 +29,7 @@ memory_resource_kind cuda_host_pinned_memory_resource::get_kind() const noexcept
 std::shared_ptr<memory_allocator> 
 cuda_host_pinned_memory_resource::create_allocator()
 {
-    return std::make_shared<cuda_host_pinned_memory_allocator>();
+    return nullptr; // TODO
 }
 
 void* cuda_host_pinned_memory_resource::malloc(
@@ -44,7 +42,7 @@ void* cuda_host_pinned_memory_resource::malloc(
 
     if (!memory::is_aligned(result, alignment))
     {
-        XMIPP4_CUDA_CHECK( cudaFreeHost(result) );
+        free(result);
         result = nullptr;
     }
 
