@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-#include "cuda_memory_block_cache.hpp"
+#include "cuda_memory_block_allocator.hpp"
 
 #include <stdexcept>
 
@@ -9,24 +9,56 @@ namespace xmipp4
 namespace hardware
 {
 
-cuda_memory_block_cache::cuda_memory_block_cache(
+cuda_memory_block_allocator::cuda_memory_block_allocator(
+    cuda_memory_resource &resource,
     std::size_t minimum_size, 
     std::size_t request_size_step 
 )
-    : m_minimum_size(minimum_size)
+    : m_resource(resource)
+    , m_minimum_size(minimum_size)
     , m_request_size_step(request_size_step)
 {
 }
 
-void cuda_memory_block_cache::release(cuda_memory_resource &resource)
+cuda_memory_resource& 
+cuda_memory_block_allocator::get_memory_resource() const noexcept
+{
+    return m_resource;
+}
+
+void cuda_memory_block_allocator::release()
 {
     m_deferred_blocks.process_pending_free(m_block_pool);
-    release_blocks(m_block_pool, resource);
+    release_blocks(m_block_pool, m_resource);
+}
+
+const cuda_memory_block& 
+cuda_memory_block_allocator::allocate(
+    std::size_t size, 
+    std::size_t alignment, 
+    const cuda_device_queue *queue,
+    cuda_memory_block_usage_tracker **usage_tracker
+) 
+{
+    auto *result = try_allocate(size, alignment, queue, usage_tracker);
+
+    if (!result)
+    {
+        // Retry after releasing blocks
+        release();
+        result = try_allocate(size, alignment, queue, usage_tracker);
+    }
+
+    if (!result)
+    {
+        throw std::bad_alloc();
+    }
+
+    return *result;
 }
 
 const cuda_memory_block* 
-cuda_memory_block_cache::allocate(
-    cuda_memory_resource &resource,
+cuda_memory_block_allocator::try_allocate(
     std::size_t size, 
     std::size_t alignment, 
     const cuda_device_queue *queue,
@@ -38,7 +70,7 @@ cuda_memory_block_cache::allocate(
     m_deferred_blocks.process_pending_free(m_block_pool);
     const auto ite = allocate_block(
         m_block_pool,
-        resource, 
+        m_resource, 
         size,
         alignment,
         queue,
@@ -66,8 +98,7 @@ cuda_memory_block_cache::allocate(
     return result;
 }
 
-inline
-void cuda_memory_block_cache::deallocate(const cuda_memory_block &block)
+void cuda_memory_block_allocator::deallocate(const cuda_memory_block &block)
 {
     const auto ite = m_block_pool.find(block);
     if (ite == m_block_pool.end())
