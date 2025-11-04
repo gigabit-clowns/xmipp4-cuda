@@ -33,9 +33,9 @@ public:
 
     std::shared_ptr<memory_allocator> create_allocator() override;
 
-    void* malloc(std::size_t size, std::size_t alignment) noexcept override;
+    void* malloc(std::size_t size, std::size_t alignment) override;
 
-    void free(void* ptr) noexcept override;
+    void free(void* ptr) override;
 
 private:
     std::reference_wrapper<cuda_device> m_device;

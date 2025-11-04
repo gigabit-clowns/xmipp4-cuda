@@ -11,8 +11,6 @@ namespace xmipp4
 namespace hardware
 {
 
-class cuda_memory_allocator;
-
 class cuda_memory_resource
     : public memory_resource
 {

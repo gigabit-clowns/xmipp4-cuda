@@ -4,7 +4,8 @@
 
 #include <xmipp4/cuda/hardware/cuda_device_queue.hpp>
 #include <xmipp4/cuda/hardware/cuda_event.hpp>
-#include "cuda_pinned_memory_resource.hpp"
+#include "cuda_host_pinned_memory_resource.hpp"
+#include "cuda_device_memory_resource.hpp"
 
 #include <memory>
 
@@ -15,7 +16,6 @@ namespace hardware
 
 cuda_device::cuda_device(int device)
     : m_device(device)
-    //, m_memory_resource(*this) // TODO
 {
 }
 
@@ -30,7 +30,7 @@ void cuda_device::enumerate_memory_resources(
 {
     resources = {
         // &m_memory_resource, // TODO
-        &cuda_pinned_memory_resource::get()
+        &cuda_host_pinned_memory_resource::get()
     };
 }
 

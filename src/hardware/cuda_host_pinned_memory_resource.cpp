@@ -1,9 +1,11 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-#include "cuda_pinned_memory_resource.hpp"
+#include "cuda_host_pinned_memory_resource.hpp"
 
 #include <xmipp4/core/memory/align.hpp>
 #include <xmipp4/cuda/hardware/cuda_error.hpp>
+
+#include "cuda_host_pinned_memory_allocator.hpp"
 
 #include <utility>
 
@@ -14,22 +16,28 @@ namespace xmipp4
 namespace hardware
 {
 
-cuda_pinned_memory_resource cuda_pinned_memory_resource::m_instance;
+cuda_host_pinned_memory_resource cuda_host_pinned_memory_resource::m_instance;
 
-device* cuda_pinned_memory_resource::get_target_device() const noexcept
+device* cuda_host_pinned_memory_resource::get_target_device() const noexcept
 {
     return nullptr;
 }
 
-memory_resource_kind cuda_pinned_memory_resource::get_kind() const noexcept
+memory_resource_kind cuda_host_pinned_memory_resource::get_kind() const noexcept
 {
     return memory_resource_kind::host_staging;
 }
 
-void* cuda_pinned_memory_resource::malloc(
+std::shared_ptr<memory_allocator> 
+cuda_host_pinned_memory_resource::create_allocator()
+{
+    return std::make_shared<cuda_host_pinned_memory_allocator>();
+}
+
+void* cuda_host_pinned_memory_resource::malloc(
     std::size_t size, 
     std::size_t alignment
-) noexcept
+)
 {
     void* result;
     XMIPP4_CUDA_CHECK( cudaMallocHost(&result, size) );
@@ -43,12 +51,13 @@ void* cuda_pinned_memory_resource::malloc(
     return result;
 }
 
-void cuda_pinned_memory_resource::free(void* ptr) noexcept
+void cuda_host_pinned_memory_resource::free(void* ptr)
 {
     XMIPP4_CUDA_CHECK( cudaFreeHost(ptr) );
 }
 
-cuda_pinned_memory_resource& cuda_pinned_memory_resource::get() noexcept
+cuda_host_pinned_memory_resource& 
+cuda_host_pinned_memory_resource::get() noexcept
 {
     return m_instance;
 }

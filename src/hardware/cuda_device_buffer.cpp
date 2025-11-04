@@ -1,15 +1,15 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-#include "cuda_host_pinned_buffer.hpp"
+#include "cuda_device_buffer.hpp"
 
-#include "cuda_host_pinned_memory_resource.hpp"
+#include "cuda_device_memory_resource.hpp"
 
 namespace xmipp4
 {
 namespace hardware
 {
 
-cuda_host_pinned_buffer::cuda_host_pinned_buffer(
+cuda_device_buffer::cuda_device_buffer(
     std::size_t size, 
     std::size_t alignment, 
     cuda_device_queue *queue, 
@@ -19,17 +19,7 @@ cuda_host_pinned_buffer::cuda_host_pinned_buffer(
 {
 }
 
-void* cuda_host_pinned_buffer::get_device_ptr() noexcept
-{
-    return nullptr; // Not device accessible.
-}
-
-const void* cuda_host_pinned_buffer::get_device_ptr() const noexcept
-{
-    return nullptr; // Not device accessible.
-}
-
-void* cuda_host_pinned_buffer::get_host_ptr() noexcept
+void* cuda_device_buffer::get_device_ptr() noexcept
 {
     const auto *block = m_allocation.get_memory_block();
     if (block)
@@ -42,7 +32,7 @@ void* cuda_host_pinned_buffer::get_host_ptr() noexcept
     }
 }
 
-const void* cuda_host_pinned_buffer::get_host_ptr() const noexcept
+const void* cuda_device_buffer::get_device_ptr() const noexcept
 {
     const auto *block = m_allocation.get_memory_block();
     if (block)
@@ -55,7 +45,17 @@ const void* cuda_host_pinned_buffer::get_host_ptr() const noexcept
     }
 }
 
-std::size_t cuda_host_pinned_buffer::get_size() const noexcept
+void* cuda_device_buffer::get_host_ptr() noexcept
+{
+    return nullptr; // Not device accessible.
+}
+
+const void* cuda_device_buffer::get_host_ptr() const noexcept
+{
+    return nullptr; // Not device accessible.
+}
+
+std::size_t cuda_device_buffer::get_size() const noexcept
 {
     const auto *block = m_allocation.get_memory_block();
     if (block)
@@ -69,12 +69,12 @@ std::size_t cuda_host_pinned_buffer::get_size() const noexcept
 }
 
 cuda_memory_resource& 
-cuda_host_pinned_buffer::get_memory_resource() const noexcept
+cuda_device_buffer::get_memory_resource() const noexcept
 {
-    return cuda_host_pinned_memory_resource::get();
+    return m_allocation.get_allocator().get_memory_resource();
 }
 
-void cuda_host_pinned_buffer::record_queue(device_queue &queue, bool)
+void cuda_device_buffer::record_queue(device_queue &queue, bool)
 {
     m_allocation.record_queue(dynamic_cast<cuda_device_queue&>(queue));
 }

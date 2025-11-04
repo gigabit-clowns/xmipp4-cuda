@@ -9,7 +9,7 @@ namespace xmipp4
 namespace hardware
 {
 
-class cuda_pinned_memory_resource final
+class cuda_host_pinned_memory_resource final
     : public cuda_memory_resource
 {
 public:
@@ -17,14 +17,16 @@ public:
 
     memory_resource_kind get_kind() const noexcept override;
 
-    void* malloc(std::size_t size, std::size_t alignment) noexcept override;
+    std::shared_ptr<memory_allocator> create_allocator() override;
 
-    void free(void* ptr) noexcept override;
+    void* malloc(std::size_t size, std::size_t alignment) override;
 
-    static cuda_pinned_memory_resource& get() noexcept;
+    void free(void* ptr) override;
+
+    static cuda_host_pinned_memory_resource& get() noexcept;
 
 private:    
-    static cuda_pinned_memory_resource m_instance;
+    static cuda_host_pinned_memory_resource m_instance;
 
 }; 
 

@@ -13,24 +13,24 @@ namespace xmipp4
 namespace hardware
 {
 
-class cuda_host_pinned_buffer final
+class cuda_device_buffer final
     : public cuda_buffer
 {
 public:
-    cuda_host_pinned_buffer(
+    cuda_device_buffer(
         std::size_t size, 
         std::size_t alignment, 
         cuda_device_queue *queue, 
         cuda_memory_block_allocator &allocator
     );
-    cuda_host_pinned_buffer(const cuda_host_pinned_buffer &other) = delete;
-    cuda_host_pinned_buffer(cuda_host_pinned_buffer &&other) = default;
-    ~cuda_host_pinned_buffer() override = default;
+    cuda_device_buffer(const cuda_device_buffer &other) = delete;
+    cuda_device_buffer(cuda_device_buffer &&other) = default;
+    ~cuda_device_buffer() override = default;
 
-    cuda_host_pinned_buffer&
-    operator=(const cuda_host_pinned_buffer &other) = delete;
-    cuda_host_pinned_buffer&
-    operator=(cuda_host_pinned_buffer &&other) = default;
+    cuda_device_buffer&
+    operator=(const cuda_device_buffer &other) = delete;
+    cuda_device_buffer&
+    operator=(cuda_device_buffer &&other) = default;
 
 
     void* get_device_ptr() noexcept override;
