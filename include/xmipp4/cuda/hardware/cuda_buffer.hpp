@@ -20,9 +20,20 @@ public:
         std::reference_wrapper<memory_resource> resource,
         std::unique_ptr<buffer_sentinel> sentinel
     );
+    ~cuda_buffer() override = default;
 
+    /**
+     * @brief Get the CUDA device accessible pointer.
+     * 
+     * @return void* Pointer to the data.
+     */
     void* get_device_ptr() noexcept;
 
+    /**
+     * @brief Get the CUDA device accessible pointer.
+     * 
+     * @return void* Pointer to the data.
+     */
     const void* get_device_ptr() const noexcept;
 
 private:

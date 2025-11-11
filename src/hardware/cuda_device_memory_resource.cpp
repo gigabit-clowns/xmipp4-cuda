@@ -34,34 +34,9 @@ memory_resource_kind cuda_device_memory_resource::get_kind() const noexcept
     return memory_resource_kind::device_local;
 }
 
-std::shared_ptr<memory_allocator> 
-cuda_device_memory_resource::create_allocator()
+std::shared_ptr<memory_heap> cuda_device_memory_resource::create_memory_heap()
 {
     return nullptr; // TODO
-}
-
-void* cuda_device_memory_resource::malloc(
-    std::size_t size, 
-    std::size_t alignment
-)
-{
-    void* result;
-    const auto device_id = m_device.get().get_index();
-    XMIPP4_CUDA_CHECK( cudaSetDevice(device_id) );
-    XMIPP4_CUDA_CHECK( cudaMalloc(&result, size) );
-
-    if (!memory::is_aligned(result, alignment))
-    {
-        free(result);
-        result = nullptr;
-    }
-
-    return result;
-}
-
-void cuda_device_memory_resource::free(void* ptr)
-{
-    XMIPP4_CUDA_CHECK( cudaFree(ptr) );
 }
 
 } // namespace hardware

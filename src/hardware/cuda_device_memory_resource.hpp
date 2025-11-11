@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include <xmipp4/cuda/hardware/cuda_memory_resource.hpp>
+#include <xmipp4/core/hardware/memory_resource.hpp>
 
 #include <utility>
 
@@ -14,7 +14,7 @@ namespace hardware
 class cuda_device;
 
 class cuda_device_memory_resource final
-    : public cuda_memory_resource
+    : public memory_resource
 {
 public:
     explicit cuda_device_memory_resource(cuda_device &device) noexcept;
@@ -31,11 +31,7 @@ public:
 
     memory_resource_kind get_kind() const noexcept override;
 
-    std::shared_ptr<memory_allocator> create_allocator() override;
-
-    void* malloc(std::size_t size, std::size_t alignment) noexcept override;
-
-    void free(void* ptr) noexcept override;
+    std::shared_ptr<memory_heap> create_memory_heap() override;
 
 private:
     std::reference_wrapper<cuda_device> m_device;
