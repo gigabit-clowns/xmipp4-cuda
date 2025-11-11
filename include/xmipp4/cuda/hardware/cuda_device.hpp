@@ -4,6 +4,8 @@
 
 #include <xmipp4/core/hardware/device.hpp>
 
+#include <memory>
+
 namespace xmipp4 
 {
 namespace hardware
@@ -36,7 +38,8 @@ public:
     create_device_to_host_event() override;
 
 private:
-    int m_device;
+    int m_device_index;
+    std::unique_ptr<memory_resource> m_device_local_memory_resource;
 
 }; 
 

@@ -4,6 +4,7 @@
 
 #include <xmipp4/cuda/hardware/cuda_device_queue.hpp>
 #include <xmipp4/cuda/hardware/cuda_event.hpp>
+
 #include "cuda_host_pinned_memory_resource.hpp"
 #include "cuda_device_memory_resource.hpp"
 
@@ -16,6 +17,9 @@ namespace hardware
 
 cuda_device::cuda_device(int device)
     : m_device(device)
+    , m_device_local_memory_resource(
+        std::make_unique<cuda_device_memory_resource>(*this)
+    )
 {
 }
 
@@ -28,17 +32,11 @@ void cuda_device::enumerate_memory_resources(
     std::vector<memory_resource*> &resources
 )
 {
+    XMIPP4_ASSERT( m_device_local_memory_resource );
     resources = {
-        // &m_memory_resource, // TODO
+        m_device_local_memory_resource.get(),
         &cuda_host_pinned_memory_resource::get()
     };
-}
-
-bool cuda_device::can_access_memory_resource(
-    const memory_resource &resource
-) const
-{
-    return false; // TODO
 }
 
 std::shared_ptr<device_queue>
