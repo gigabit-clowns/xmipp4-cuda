@@ -9,17 +9,24 @@ namespace xmipp4
 namespace hardware
 {
 
-class cuda_device_queue;
-
 class cuda_buffer
     : public buffer
 {
 public:
-    virtual
-    void* get_device_ptr() noexcept = 0;
+    cuda_buffer(
+        void *device_pointer,
+        void *host_pointer,
+        std::size_t size,
+        std::reference_wrapper<memory_resource> resource,
+        std::unique_ptr<buffer_sentinel> sentinel
+    );
 
-    virtual
-    const void* get_device_ptr() const noexcept = 0;
+    void* get_device_ptr() noexcept;
+
+    const void* get_device_ptr() const noexcept;
+
+private:
+    void *m_device_ptr;
 
 }; 
 
