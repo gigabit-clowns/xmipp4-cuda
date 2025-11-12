@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-#include "cuda_memory_transfer_host_to_device.hpp"
+#include "cuda_device_to_device_memory_transfer.hpp"
 
 #include <xmipp4/cuda/hardware/cuda_device_queue.hpp>
 #include <xmipp4/cuda/hardware/cuda_buffer.hpp>
@@ -15,7 +15,7 @@ namespace xmipp4
 namespace hardware
 {
 
-void cuda_memory_transfer_host_to_device::copy(
+void cuda_device_to_device_memory_transfer::copy(
     const buffer &source, 
     buffer &destination,
     span<const copy_region> regions, 
@@ -29,25 +29,25 @@ void cuda_memory_transfer_host_to_device::copy(
     }
 
     copy(
-        source, 
+        dynamic_cast<const cuda_buffer&>(source),
         dynamic_cast<cuda_buffer&>(destination),
         regions,
         cuda_queue
     );
 }
 
-void cuda_memory_transfer_host_to_device::copy(
-    const buffer &source, 
+void cuda_device_to_device_memory_transfer::copy(
+    const cuda_buffer &source, 
     cuda_buffer &destination,
     span<const copy_region> regions, 
     cuda_device_queue *queue
 ) const
 {
-    const auto *src_ptr = source.get_host_ptr();
+    const auto *src_ptr = source.get_device_ptr();
     if (!src_ptr)
     {
         throw std::invalid_argument(
-            "Source buffer is not host accessible."
+            "Source buffer is not device accessible."
         );
     }
 
@@ -75,7 +75,7 @@ void cuda_memory_transfer_host_to_device::copy(
             dst_ptr,
             dst_size, 
             region, 
-            cudaMemcpyHostToDevice,
+            cudaMemcpyDeviceToDevice,
             stream_handle
         );
     }

@@ -3,7 +3,9 @@
 #include "cuda_plugin.hpp"
 
 #include "hardware/cuda_device_backend.hpp"
-#include "hardware/cuda_memory_transfer_backend.hpp"
+#include "hardware/cuda_device_to_device_memory_transfer_backend.hpp"
+#include "hardware/cuda_device_to_host_memory_transfer_backend.hpp"
+#include "hardware/cuda_host_to_device_memory_transfer_backend.hpp"
 
 #include <xmipp4/core/service_catalog.hpp>
 #include <xmipp4/core/hardware/device_manager.hpp>
@@ -30,11 +32,20 @@ version cuda_plugin::get_version() const noexcept
 
 void cuda_plugin::register_at(service_catalog& catalog) const
 {
-    hardware::cuda_device_backend::register_at(
-        catalog.get_service_manager<hardware::device_manager>()
+    auto &device_manager = 
+        catalog.get_service_manager<hardware::device_manager>();
+    hardware::cuda_device_backend::register_at(device_manager);
+
+    auto &transfer_manager = 
+        catalog.get_service_manager<hardware::memory_transfer_manager>();
+    hardware::cuda_device_to_device_memory_transfer_backend::register_at(
+        transfer_manager
     );
-    hardware::cuda_memory_transfer_backend::register_at(
-        catalog.get_service_manager<hardware::memory_transfer_manager>()
+    hardware::cuda_device_to_host_memory_transfer_backend::register_at(
+        transfer_manager
+    );
+    hardware::cuda_host_to_device_memory_transfer_backend::register_at(
+        transfer_manager
     );
 }
 

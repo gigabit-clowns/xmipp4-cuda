@@ -12,12 +12,12 @@ namespace hardware
 class cuda_device_queue;
 class cuda_buffer;
 
-class cuda_memory_transfer_device_to_device
+class cuda_host_to_device_memory_transfer
     : public memory_transfer
 {
 public:
-    cuda_memory_transfer_device_to_device() = default;
-    ~cuda_memory_transfer_device_to_device() override = default;
+    cuda_host_to_device_memory_transfer() = default;
+    ~cuda_host_to_device_memory_transfer() override = default;
 
     void copy(
         const buffer &source, 
@@ -27,7 +27,7 @@ public:
     ) const override;
     
     void copy(
-        const cuda_buffer &source, 
+        const buffer &source, 
         cuda_buffer &destination,
         span<const copy_region> regions, 
         cuda_device_queue *queue
