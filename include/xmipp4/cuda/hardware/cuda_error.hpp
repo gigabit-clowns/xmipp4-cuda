@@ -1,7 +1,10 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 #pragma once
+
 #include <stdexcept>
+
+#include "../dynamic_shared_object.h"
 
 #include <cuda_runtime.h>
 
@@ -29,6 +32,7 @@ class cuda_error
  * @param line Line where the error occurred.
  * 
  */
+XMIPP4_HARDWARE_CUDA_API
 void cuda_check(
     cudaError_t code, 
     const char* call, 

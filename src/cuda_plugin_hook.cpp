@@ -2,13 +2,7 @@
 
 #include "cuda_plugin.hpp"
 
-#include <xmipp4/core/platform/dynamic_shared_object.h>
-
-#if defined(XMIPP4_HARDWARE_CUDA_EXPORTING)
-    #define XMIPP4_HARDWARE_CUDA_API XMIPP4_EXPORT
-#else
-    #define XMIPP4_HARDWARE_CUDA_API XMIPP4_IMPORT
-#endif
+#include <xmipp4/cuda/dynamic_shared_object.h>
 
 static const xmipp4::cuda_plugin instance;
 
