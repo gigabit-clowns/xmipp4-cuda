@@ -10,20 +10,14 @@ namespace hardware
 {
 
 class cuda_device_queue;
+class cuda_buffer;
 
-class cuda_memory_transfer
+class cuda_memory_transfer_device_to_host
     : public memory_transfer
 {
 public:
-    explicit cuda_memory_transfer(int direction) noexcept;
-    cuda_memory_transfer(const cuda_memory_transfer &other) = default;
-    cuda_memory_transfer(cuda_memory_transfer &&other) = default;
-    ~cuda_memory_transfer() override = default;
-
-    cuda_memory_transfer&
-    operator=(const cuda_memory_transfer &other) = default;
-    cuda_memory_transfer&
-    operator=(cuda_memory_transfer &&other) = default;
+    cuda_memory_transfer_device_to_host() = default;
+    ~cuda_memory_transfer_device_to_host() override = default;
 
     void copy(
         const buffer &source, 
@@ -33,7 +27,7 @@ public:
     ) const override;
     
     void copy(
-        const buffer &source, 
+        const cuda_buffer &source, 
         buffer &destination,
         span<const copy_region> regions, 
         cuda_device_queue *queue

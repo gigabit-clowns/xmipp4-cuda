@@ -4,7 +4,7 @@
 
 #include <xmipp4/core/hardware/memory_transfer_manager.hpp>
 
-#include "cuda_memory_transfer.hpp"
+//#include "cuda_memory_transfer.hpp"
 
 namespace xmipp4
 {
