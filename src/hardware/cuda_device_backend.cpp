@@ -32,12 +32,12 @@ static std::string pci_id_to_string(int bus_id, int device_id, int domain_id)
 
 
 
-std::string cuda_device_backend::get_name() const noexcept
+std::string cuda_device_backend::get_name() const
 {
     return "cuda";
 }
 
-version cuda_device_backend::get_version() const noexcept
+version cuda_device_backend::get_version() const
 {
     int cuda_version;
     XMIPP4_CUDA_CHECK( cudaRuntimeGetVersion(&cuda_version) );
@@ -52,18 +52,6 @@ version cuda_device_backend::get_version() const noexcept
     );
 }
 
-bool cuda_device_backend::is_available() const noexcept
-{
-    int count = 0;
-    cudaGetDeviceCount(&count);
-    return count > 0;
-}
-
-backend_priority cuda_device_backend::get_priority() const noexcept
-{
-    return backend_priority::normal;
-}
-
 void cuda_device_backend::enumerate_devices(std::vector<std::size_t> &ids) const
 {
     int count;
@@ -76,8 +64,10 @@ void cuda_device_backend::enumerate_devices(std::vector<std::size_t> &ids) const
     );
 }
 
-bool cuda_device_backend::get_device_properties(std::size_t id, 
-                                                device_properties &desc ) const
+bool cuda_device_backend::get_device_properties(
+    std::size_t id, 
+    device_properties &desc
+) const
 {
     int count;
     cudaGetDeviceCount(&count);
