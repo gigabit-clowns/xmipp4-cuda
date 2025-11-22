@@ -17,7 +17,7 @@ class cuda_host_pinned_memory_heap final
     : public memory_heap
 {
 public:
-    cuda_host_pinned_memory_heap(std::size_t size);
+    explicit cuda_host_pinned_memory_heap(std::size_t size);
     ~cuda_host_pinned_memory_heap() override;
 
     std::size_t get_size() const noexcept override;
