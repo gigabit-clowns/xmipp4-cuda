@@ -46,8 +46,6 @@ private:
 
 }; 
 
-
-
 /**
  * @brief Get a CUDA device accessible pointer from a generic buffer.
  * 
