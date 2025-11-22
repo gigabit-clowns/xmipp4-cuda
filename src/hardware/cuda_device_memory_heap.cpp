@@ -54,7 +54,7 @@ std::shared_ptr<buffer> cuda_device_memory_heap::create_buffer(
     std::unique_ptr<buffer_sentinel> sentinel
 )
 {
-    if (offset + size >= m_size)
+    if (offset + size > m_size)
     {
         throw std::out_of_range("Allocation exceeds heap bounds");
     }
