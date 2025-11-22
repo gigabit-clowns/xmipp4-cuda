@@ -18,9 +18,9 @@ namespace hardware
  * 
  */
 class cuda_error
-    : public std::runtime_error
+	: public std::runtime_error
 {
-    using runtime_error::runtime_error;
+	using runtime_error::runtime_error;
 };
 
 /**
@@ -34,10 +34,10 @@ class cuda_error
  */
 XMIPP4_HARDWARE_CUDA_API
 void cuda_check(
-    cudaError_t code, 
-    const char* call, 
-    const char* file,
-    int line
+	cudaError_t code, 
+	const char* call, 
+	const char* file,
+	int line
 );
 
 /**

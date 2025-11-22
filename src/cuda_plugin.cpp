@@ -18,35 +18,35 @@ const std::string cuda_plugin::name = "xmipp4-hardware-cuda";
 
 const std::string& cuda_plugin::get_name() const noexcept
 {
-    return name; 
+	return name; 
 }
 
 version cuda_plugin::get_version() const noexcept
 {
-    return version(
-        VERSION_MAJOR,
-        VERSION_MINOR,
-        VERSION_PATCH
-    );
+	return version(
+		VERSION_MAJOR,
+		VERSION_MINOR,
+		VERSION_PATCH
+	);
 }
 
 void cuda_plugin::register_at(service_catalog& catalog) const
 {
-    auto &device_manager = 
-        catalog.get_service_manager<hardware::device_manager>();
-    hardware::cuda_device_backend::register_at(device_manager);
+	auto &device_manager = 
+		catalog.get_service_manager<hardware::device_manager>();
+	hardware::cuda_device_backend::register_at(device_manager);
 
-    auto &transfer_manager = 
-        catalog.get_service_manager<hardware::memory_transfer_manager>();
-    hardware::cuda_device_to_device_memory_transfer_backend::register_at(
-        transfer_manager
-    );
-    hardware::cuda_device_to_host_memory_transfer_backend::register_at(
-        transfer_manager
-    );
-    hardware::cuda_host_to_device_memory_transfer_backend::register_at(
-        transfer_manager
-    );
+	auto &transfer_manager = 
+		catalog.get_service_manager<hardware::memory_transfer_manager>();
+	hardware::cuda_device_to_device_memory_transfer_backend::register_at(
+		transfer_manager
+	);
+	hardware::cuda_device_to_host_memory_transfer_backend::register_at(
+		transfer_manager
+	);
+	hardware::cuda_host_to_device_memory_transfer_backend::register_at(
+		transfer_manager
+	);
 }
 
 } // namespace xmipp4

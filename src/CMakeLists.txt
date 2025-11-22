@@ -21,8 +21,8 @@ set_target_properties(
 target_include_directories(
 	${TARGET_NAME} 
 	PUBLIC 
-	    $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
-        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+		$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+		$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
 target_compile_definitions(
 	${TARGET_NAME} 

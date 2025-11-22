@@ -19,43 +19,43 @@ namespace hardware
 {
 
 cuda_host_pinned_memory_heap::cuda_host_pinned_memory_heap(std::size_t size)
-    : m_data(nullptr)
-    , m_size(size)
+	: m_data(nullptr)
+	, m_size(size)
 {
-    cudaMallocHost(&m_data, m_size);
-    if (!m_data && size > 0)
-    {
-        throw std::bad_alloc();
-    }
+	cudaMallocHost(&m_data, m_size);
+	if (!m_data && size > 0)
+	{
+		throw std::bad_alloc();
+	}
 }
 
 cuda_host_pinned_memory_heap::~cuda_host_pinned_memory_heap()
 {
-    cudaFreeHost(m_data);
+	cudaFreeHost(m_data);
 }
 
 std::size_t cuda_host_pinned_memory_heap::get_size() const noexcept
 {
-    return m_size;
+	return m_size;
 }
 
 std::shared_ptr<buffer> cuda_host_pinned_memory_heap::create_buffer(
-    std::size_t offset, 
-    std::size_t size,
-    std::unique_ptr<buffer_sentinel> sentinel
+	std::size_t offset, 
+	std::size_t size,
+	std::unique_ptr<buffer_sentinel> sentinel
 )
 {
-    if (offset + size > m_size)
-    {
-        throw std::out_of_range("Allocation exceeds heap bounds");
-    }
+	if (offset + size > m_size)
+	{
+		throw std::out_of_range("Allocation exceeds heap bounds");
+	}
 
-    return std::make_shared<buffer>(
-        memory::offset_bytes(m_data, offset),
-        size,
-        cuda_host_pinned_memory_resource::get(),
-        std::move(sentinel)
-    );
+	return std::make_shared<buffer>(
+		memory::offset_bytes(m_data, offset),
+		size,
+		cuda_host_pinned_memory_resource::get(),
+		std::move(sentinel)
+	);
 }
 
 } // namespace hardware

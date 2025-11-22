@@ -19,53 +19,53 @@ namespace hardware
 {
 
 cuda_device_memory_heap::cuda_device_memory_heap(
-    cuda_device_memory_resource &resource,
-    std::size_t size
+	cuda_device_memory_resource &resource,
+	std::size_t size
 )
-    : m_resource(resource)
-    , m_data(nullptr)
-    , m_size(size)
+	: m_resource(resource)
+	, m_data(nullptr)
+	, m_size(size)
 {
-    const auto *device = resource.get_target_device();
-    XMIPP4_ASSERT( device );
-    const auto device_index = device->get_index();
+	const auto *device = resource.get_target_device();
+	XMIPP4_ASSERT( device );
+	const auto device_index = device->get_index();
 
-    XMIPP4_CUDA_CHECK( cudaSetDevice(device_index) );
-    cudaMalloc(&m_data, m_size);
-    if (!m_data && size > 0)
-    {
-        throw std::bad_alloc();
-    }
+	XMIPP4_CUDA_CHECK( cudaSetDevice(device_index) );
+	cudaMalloc(&m_data, m_size);
+	if (!m_data && size > 0)
+	{
+		throw std::bad_alloc();
+	}
 }
 
 cuda_device_memory_heap::~cuda_device_memory_heap()
 {
-    cudaFree(m_data);
+	cudaFree(m_data);
 }
 
 std::size_t cuda_device_memory_heap::get_size() const noexcept
 {
-    return m_size;
+	return m_size;
 }
 
 std::shared_ptr<buffer> cuda_device_memory_heap::create_buffer(
-    std::size_t offset, 
-    std::size_t size,
-    std::unique_ptr<buffer_sentinel> sentinel
+	std::size_t offset, 
+	std::size_t size,
+	std::unique_ptr<buffer_sentinel> sentinel
 )
 {
-    if (offset + size > m_size)
-    {
-        throw std::out_of_range("Allocation exceeds heap bounds");
-    }
+	if (offset + size > m_size)
+	{
+		throw std::out_of_range("Allocation exceeds heap bounds");
+	}
 
-    return std::make_shared<cuda_buffer>(
-        memory::offset_bytes(m_data, offset),
-        nullptr,
-        size,
-        m_resource,
-        std::move(sentinel)
-    );
+	return std::make_shared<cuda_buffer>(
+		memory::offset_bytes(m_data, offset),
+		nullptr,
+		size,
+		m_resource,
+		std::move(sentinel)
+	);
 }
 
 } // namespace hardware

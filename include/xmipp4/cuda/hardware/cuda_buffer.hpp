@@ -12,37 +12,37 @@ namespace hardware
 {
 
 class cuda_buffer final
-    : public buffer
+	: public buffer
 {
 public:
-    XMIPP4_HARDWARE_CUDA_API
-    cuda_buffer(
-        void *device_pointer,
-        void *host_pointer,
-        std::size_t size,
-        std::reference_wrapper<memory_resource> resource,
-        std::unique_ptr<buffer_sentinel> sentinel
-    );
-    ~cuda_buffer() override = default;
+	XMIPP4_HARDWARE_CUDA_API
+	cuda_buffer(
+		void *device_pointer,
+		void *host_pointer,
+		std::size_t size,
+		std::reference_wrapper<memory_resource> resource,
+		std::unique_ptr<buffer_sentinel> sentinel
+	);
+	~cuda_buffer() override = default;
 
-    /**
-     * @brief Get the CUDA device accessible pointer.
-     * 
-     * @return void* Pointer to the data.
-     */
-    XMIPP4_HARDWARE_CUDA_API
-    void* get_device_ptr() noexcept;
+	/**
+	 * @brief Get the CUDA device accessible pointer.
+	 * 
+	 * @return void* Pointer to the data.
+	 */
+	XMIPP4_HARDWARE_CUDA_API
+	void* get_device_ptr() noexcept;
 
-    /**
-     * @brief Get the CUDA device accessible pointer.
-     * 
-     * @return void* Pointer to the data.
-     */
-    XMIPP4_HARDWARE_CUDA_API
-    const void* get_device_ptr() const noexcept;
+	/**
+	 * @brief Get the CUDA device accessible pointer.
+	 * 
+	 * @return void* Pointer to the data.
+	 */
+	XMIPP4_HARDWARE_CUDA_API
+	const void* get_device_ptr() const noexcept;
 
 private:
-    void *m_device_ptr;
+	void *m_device_ptr;
 
 }; 
 

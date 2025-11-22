@@ -10,6 +10,6 @@ extern "C"
 {
 XMIPP4_HARDWARE_CUDA_API const xmipp4::plugin* xmipp4_get_plugin() 
 {
-    return &instance;
+	return &instance;
 }
 }

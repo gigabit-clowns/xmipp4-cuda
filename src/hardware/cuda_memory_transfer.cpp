@@ -20,39 +20,39 @@ namespace hardware
 
 static
 void cuda_copy_bytes(
-    const void *src_ptr, 
-    std::size_t src_size, 
-    void* dst_ptr, 
-    std::size_t dst_size,
-    const copy_region &region,
-    cudaStream_t stream
+	const void *src_ptr, 
+	std::size_t src_size, 
+	void* dst_ptr, 
+	std::size_t dst_size,
+	const copy_region &region,
+	cudaStream_t stream
 )
 {
-    const auto src_offset = region.get_source_offset();
-    const auto dst_offset = region.get_destination_offset();
-    const auto byte_count = region.get_count();
+	const auto src_offset = region.get_source_offset();
+	const auto dst_offset = region.get_destination_offset();
+	const auto byte_count = region.get_count();
 
-    if (src_offset + byte_count > src_size)
-    {
-        throw std::out_of_range(
-            "Copy region exceeds source buffer size."
-        );
-    }
+	if (src_offset + byte_count > src_size)
+	{
+		throw std::out_of_range(
+			"Copy region exceeds source buffer size."
+		);
+	}
 
-    if (dst_offset + byte_count > dst_size)
-    {
-        throw std::out_of_range(
-            "Copy region exceeds destination buffer size."
-        );
-    }
+	if (dst_offset + byte_count > dst_size)
+	{
+		throw std::out_of_range(
+			"Copy region exceeds destination buffer size."
+		);
+	}
 
-    cudaMemcpyAsync(
-        memory::offset_bytes(dst_ptr, dst_offset), 
-        memory::offset_bytes(src_ptr, src_offset), 
-        byte_count,
+	cudaMemcpyAsync(
+		memory::offset_bytes(dst_ptr, dst_offset), 
+		memory::offset_bytes(src_ptr, src_offset), 
+		byte_count,
 		cudaMemcpyDefault,
-        stream
-    );
+		stream
+	);
 }
 
 void cuda_memory_transfer::copy(

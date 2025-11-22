@@ -10,7 +10,7 @@ namespace hardware
 {
 
 class cuda_host_to_device_memory_transfer final
-    : public cuda_memory_transfer
+	: public cuda_memory_transfer
 {
 public:
 	cuda_host_to_device_memory_transfer() = default;
