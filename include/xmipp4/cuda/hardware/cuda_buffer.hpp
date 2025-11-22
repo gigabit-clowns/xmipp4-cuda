@@ -46,5 +46,25 @@ private:
 
 }; 
 
+
+
+/**
+ * @brief Get a CUDA device accessible pointer from a generic buffer.
+ * 
+ * @param buf The buffer from which to get the device pointer.
+ * @return const void* The device accessible pointer. nullptr if the buffer
+ * is not a cuda_buffer or it is not device accessible.
+ */
+void* cuda_get_device_ptr(buffer& buf) noexcept;
+
+/**
+ * @brief Get a CUDA device accessible pointer from a generic buffer.
+ * 
+ * @param buf The buffer from which to get the device pointer.
+ * @return const void* The device accessible pointer. nullptr if the buffer
+ * is not a cuda_buffer or it is not device accessible.
+ */
+const void* cuda_get_device_ptr(const buffer& buf) noexcept;
+
 } // namespace hardware
 } // namespace xmipp4

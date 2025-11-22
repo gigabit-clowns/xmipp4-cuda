@@ -26,13 +26,7 @@ void* cuda_host_to_device_memory_transfer::get_destination_pointer(
 	buffer &destination
 ) const
 {
-	auto *cuda_destination = dynamic_cast<cuda_buffer*>(&destination);
-	if (!cuda_destination)
-	{
-		throw std::invalid_argument("Destination buffer is not a cuda_buffer.");
-	}
-
-	auto *ptr = cuda_destination->get_device_ptr();
+	auto *ptr = cuda_get_device_ptr(destination);
 	if (!ptr)
 	{
 		throw std::invalid_argument(

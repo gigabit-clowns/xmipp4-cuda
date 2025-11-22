@@ -29,5 +29,30 @@ const void* cuda_buffer::get_device_ptr() const noexcept
 	return m_device_ptr;
 }
 
+
+
+void* cuda_get_device_ptr(buffer& buf) noexcept
+{
+	auto *cuda_buf = dynamic_cast<cuda_buffer*>(&buf);
+	if (!cuda_buf)
+	{
+		return nullptr;
+	}
+
+	return cuda_buf->get_device_ptr();
+}
+
+
+const void* cuda_get_device_ptr(const buffer& buf) noexcept
+{
+	const auto *cuda_buf = dynamic_cast<const cuda_buffer*>(&buf);
+	if (!cuda_buf)
+	{
+		return nullptr;
+	}
+
+	return cuda_buf->get_device_ptr();
+}
+
 } // namespace hardware
 } // namespace xmipp4

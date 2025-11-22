@@ -20,14 +20,7 @@ const void* cuda_device_to_host_memory_transfer::get_source_pointer(
 	const buffer &source
 ) const
 {
-	const auto *cuda_source = 
-		dynamic_cast<const cuda_buffer*>(&source);
-	if (!cuda_source)
-	{
-		throw std::invalid_argument("Source buffer is not a cuda_buffer.");
-	}
-
-	const auto *ptr = cuda_source->get_device_ptr();
+	const auto *ptr = cuda_get_device_ptr(source);
 	if (!ptr)
 	{
 		throw std::invalid_argument(
