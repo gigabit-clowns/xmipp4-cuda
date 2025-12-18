@@ -11,6 +11,7 @@
 #include "cuda_device_memory_resource.hpp"
 
 #include <memory>
+#include <stdexcept>
 
 namespace xmipp4
 {
